@@ -4,7 +4,7 @@ const app=require("./app");
 const server= http.createServer(app); 
 server.listen(port,
 	               ()=>
-	                   {
-	                   	console.log(`node is waiting at port ${port} for you`);
+	                   {	                   	
+	                   	console.log(`node is waiting at port ${port} for you`);	                   	
 	                   }
 	         );

@@ -1,0 +1,8 @@
+{
+	"env":{
+			"MONGO_ATLAS_PW":"sonja",
+			"JWT_KEY":"apple",
+			"NODE_ENV":"production",
+			"PORT":3001		
+		  }
+}
