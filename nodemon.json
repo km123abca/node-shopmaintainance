@@ -3,6 +3,9 @@
 			"MONGO_ATLAS_PW":"sonja",
 			"JWT_KEY":"apple",
 			"NODE_ENV":"production",
-			"PORT":3001		
+			"PORT":3001,
+			"DB_CONN_STR":"mongodb+srv://kitchuadmin:sonja@node-rest-shop-cqnpt.mongodb.net/test?retryWrites=true&w=majority"		
 		  }
+
+		  
 }

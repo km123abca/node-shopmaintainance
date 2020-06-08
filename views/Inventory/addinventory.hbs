@@ -1,0 +1,51 @@
+<div class="row largeTo">
+
+{{#if hasSuccessMessage}}
+	<div class="alert alert-success">
+		{{#each messages}}
+			<p>{{this}}</p>					
+		{{/each}}
+	</div>
+{{/if}}
+
+<div class='text-danger largeFont' id='warn-i' style="width:100%;"></div> 
+
+<form action="" id="inventory-form" method="post">  
+
+	<div class="form-group">
+		<label for="Product_id">Product ID:</label>
+		<input type="text" id="Product_id" name="Product_id" class="form-control">				
+	</div>
+
+	<div class="form-group">
+		<label for="Product_Name">Product Name:</label>
+		<input type="text" id="Product_Name" name="Product_Name" class="form-control">				
+	</div>
+
+	<div class="form-group">
+		<label for="Product_Desc">Description:</label>
+		<input type="text" id="Product_Desc" name="Product_Desc" class="form-control">				
+	</div>
+
+	<div class="form-group">
+		<label for="Product_Qty">Quantity:</label>
+		<input type="text" id="Product_Qty" name="Product_Qty" class="form-control">				
+	</div>
+
+	<div class="form-group">
+		<label for="Product_Price">Price:</label>
+		<input type="text" id="Product_Price" name="Product_Price" class="form-control">				
+	</div>
+
+	<div class="form-group">
+		<label for="Product_Image">Select Image:</label>
+		<input type="file" id="Product_Image" name="Product_Image" class="form-control">				
+	</div>
+	
+
+	<!-- <input type="hidden" name="_csrf" value="{{ csrfToken }}">    -->
+	<button type="submit" class="btn btn-primary">Submit</button>
+
+</form>
+</div>
+<script src='/javascripts/inventoryForm.js'></script>

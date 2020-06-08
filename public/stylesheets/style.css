@@ -1,0 +1,19 @@
+body {
+  padding: 50px;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  background: linear-gradient(to right, #808080,#80ff80);
+  	
+  
+}
+
+label{
+	font-weight: bold;
+}
+.largeTo{
+	margin-top:50px;
+	/*border:2px solid black;*/
+}
+.largeFont{
+	font-weight: bold;
+	font-size:3em;
+}

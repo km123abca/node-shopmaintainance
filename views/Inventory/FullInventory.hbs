@@ -1,0 +1,20 @@
+{{#if hasDocs}}
+<table class="table table-striped">
+	<thead>
+		<tr>
+			<th>ID</th>
+			<th>Name</th>
+			<th>Description</th>
+			<th>Quantity</th>
+			<th>Price</th>
+			<th>Date</th>
+		</tr>
+	</thead>
+	<tbody id="inv-table-body">
+	
+    </tbody>
+</table>
+<script src='/javascripts/productLoader.js'></script>
+{{else}}
+  <h1 class="text-warning largeFont" style="font-weight:bold;">It appears there is no data to display</h1>
+{{/if}}

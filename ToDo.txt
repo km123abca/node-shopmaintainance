@@ -7,8 +7,21 @@
 [x] npm install --save morgan
 [x] make 'public' folder static app.use(express.static(path.join(__dirname, 'public')));
 [x] Create a routes folder and set up the appropriate routes and export the router which can be used at app.js
-[] npm install --save body-parser  for parsing body of a request
-[] npm install --save mongoose
+[x] Install Handlebars npm install --save express-handlebars
+[x] set up handlebars as view engine inside app.js
+     app.engine('.hbs',expressHbs({defaultLayout:'Layout',extname:'.hbs'}));
+     app.set('view engine', '.hbs');
+[x] Create views, views/layouts/layout.hbs
+[x] npm install --save mongoose
+[x] npm install --save multer , for image uploading
+[x] create a new mongodb project in our atlas page
+    email: johnymcoy5@gmail.com  password: alexanderdobrev1@
+    mongoadmin:kitchu pass:sonja
+   mongo "mongodb+srv://cluster0-uyi0w.mongodb.net/node-billing-inventory" --username kitchu
+   pivoted and decided to use
+   mongo "mongodb+srv://node-rest-shop-cqnpt.mongodb.net/test"  --username kitchuadmin
+
+[] npm install --save body-parser  for parsing body of a request    eg: req.body.productId
 [] create nodemon.json at the root to store process.env. variables like mongodb password
    process.env.MONGO_ATLAS_PW
 [] create inventory.js, Sales.js and Bills.js inside the models folder.
