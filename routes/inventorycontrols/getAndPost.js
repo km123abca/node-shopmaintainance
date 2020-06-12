@@ -57,14 +57,21 @@ const addNew=(req,res)=>
                              };
 const createNew=(req,res)=>
 							{
-                                w2file("here at the route");
+                                // w2file("here at the route");
 								                var Product_id  =req.body.Product_id;
                                 var Product_Name=req.body.Product_Name;
                                 var Product_Desc=req.body.Product_Desc;
                                 var Product_Qty=req.body.Product_Qty;
                                 var Product_Price=req.body.Product_Price;
-                                // var Product_Image=req.file.path; 
-                                var Product_Image="uploads/6_6_2020Apples.png";
+                                try{
+                                    var Product_Image=req.file.path;
+                                   }
+                                catch(error)
+                                   {
+                                    var Product_Image="uploads\\noimage.jpg";
+                                   } 
+                                var Product_Change_Date=Date.now();
+                                // var Product_Image="uploads/6_6_2020Apples.png";
                                 productsx.find({Product_id:Product_id})
                                         .exec()
                                         .then(
@@ -80,6 +87,7 @@ const createNew=(req,res)=>
                                         	  	 		                  Product_Qty :Product_Qty,
                                         	  	 		                  Product_Image:Product_Image,
                                                                     Product_Price:Product_Price,
+                                                                    Product_Change_Date:Product_Change_Date,
                                         	  	 		                }
                                         	  	 		              );
                                         	  	 	p.save()
@@ -107,7 +115,7 @@ const createNew=(req,res)=>
                                         	  	 	if(Product_Name!="") docs[0].Product_Name=Product_Name;
                                         	  	 	if(Product_Desc!="") docs[0].Product_Desc=Product_Desc;
                                         	  	 	if(Product_Qty!="")  docs[0].Product_Qty=Product_Qty;
-                                        	  	  if(Product_Image!="") docs[0].Product_Image=Product_Image;
+                                        	  	  if(Product_Image!="uploads\\noimage.jpg") docs[0].Product_Image=Product_Image;
                                         	  	 	docs[0].save()
 		                                        	  	 	.then(result=>{res.status(201).json(
 						                                        	  	 		                  {

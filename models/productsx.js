@@ -8,7 +8,8 @@ var schema 	=new Schema(
                             Product_Qty   :{type:Number,required:true},
                             Product_Price :{type:Number,required:true},	
                             Product_Image :{type: String,required:true},
-                            Product_Date  :{type:String,default:Date.now()}, 						
+                            Product_Date  :{type:String,default:Date.now()}, 
+                            Product_Change_Date:{type:String,default:Date.now()},					
 				}
 			   );
 module.exports =mongoose.model('inventoryitem',schema);

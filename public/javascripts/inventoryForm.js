@@ -25,7 +25,8 @@ form
 	                        	.then(response=>response.json())
 	                        	.then( (resp)=>
 	                        		           {
-	                        			       document.querySelector('#warn-i').innerHTML=resp.message;
+	                        			       // document.querySelector('#warn-i').innerHTML=resp.message;
+	                        			       showModal_k("Done",resp.message);
 	                        			       }
 	                        		 )
 	                        	.catch(err=>
