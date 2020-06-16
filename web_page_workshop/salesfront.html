@@ -69,7 +69,51 @@
 						width: 50px;
 						margin: 5px;
 					}
-					
+					#cashpane1{
+						/*border:2px solid black;*/
+						/*margin-top:5px;*/
+						top: 3px;
+						position: absolute;
+						width:100%;	
+						left:0px;
+					}	
+					#cashpane2{
+						bottom: 3px;
+						position: absolute;
+						width:100%;	
+						left:0px;					
+					}	
+					.headrow{
+						border-style: dotted;
+						border-left: none;
+						border-right: none
+					}	
+					.bottomrow{
+						border-style: dotted;
+						border-left: none;
+						border-right: none;
+						border-bottom: none;
+
+					}
+					#pricetable{
+						position: absolute;
+						width:100%;
+						left:0px;
+					}	
+					.full-line{
+						position: absolute;
+						width:100%;
+						left:0px;
+						/*margin-top:3px;
+						margin-bottom: 3px;*/
+					}	
+					table#ptable tr{
+						line-height:4px;
+						/*border:3px solid yellow;*/
+					}
+					#summarypane{
+						overflow: auto;
+					}
 
 	</style>
 </head>
@@ -132,19 +176,19 @@
 
 
 	<div id="cashpane" class="ipane col-lg-3 col-md-12 col-sm-12">
-		<div id="cashpane1">
+		<div id="cashpane1" >
 			<table class="table table-striped">
 				<tbody>
 					<tr>
-				    	<td class="text-right">Subtotal:</td>
+				    	<td class="text-right font-weight-bold">Subtotal:</td>
 				    	<td>am</td>
 				    </tr>
 				    <tr>
-				    	<td class="text-right">Tax:</td>
+				    	<td class="text-right font-weight-bold">Tax:</td>
 				    	<td></td>
 				    </tr>
 				    <tr>
-				    	<td class="text-right">Total:</td>
+				    	<td class="text-right font-weight-bold">Total:</td>
 				    	<td></td>
 				    </tr>
 				</tbody>				
@@ -152,12 +196,103 @@
 		</div>
 
 		<div id="cashpane2">
-			fdfd
+			<table class="table table-striped">
+				<tbody>
+					<tr>
+				    	<td class="text-right font-weight-bold">Paytype:</td>
+				    	<td>am</td>
+				    </tr>
+				    <tr>
+				    	<td class="text-right font-weight-bold">Payment:</td>
+				    	<td></td>
+				    </tr>
+				    <tr>
+				    	<td class="text-right font-weight-bold">Balance:</td>
+				    	<td></td>
+				    </tr>
+				</tbody>				
+			</table>
 		</div>
 	</div>
 
 	<div id="summarypane" class="ipane col-lg-3 col-md-12 col-sm-12" >
-		fdf
+		<div class="text-center font-weight-bold mt-2 mb-2">Sales Receipt</div>
+		<div class="text-center font-weight-bold mt-2 mb-2">The Grocery Store</div>
+		<div class="text-center font-weight-bold mt-2 mb-2">342, Grove Street, Los Santos</div>
+		<div class="text-center font-weight-bold mt-2 mb-2">7458-125-125</div>
+		<hr class="full-line" />
+		<div class="text-center mt-2 mb-2">
+			<span id="reclabel" class="font-weight-bold">Receipt No:</span>
+			<span id="rcptnum"></span>
+		</div>
+		<div class="text-center mt-2 mb-2">
+			<span id="dtlabel" class="font-weight-bold">Date:</span>
+			<span id="rcptdt"></span>
+		</div>
+		<div class="text-center mt-2 mb-2">
+			<span id="cslabel" class="font-weight-bold">Cashier:</span>
+			<span id="csnm"></span>
+		</div>
+
+		<div id="pricetable">
+			<table class="table" id="ptable">
+				<thead>
+					<tr class="headrow">
+						<th>Item</th>
+						<th>Qty</th>
+						<th>Price</th>
+						<th>Total</th>
+					</tr>
+				</thead>
+
+				<tbody>
+					<tr>
+						<td>Apple</td>
+						<td>34</td>
+						<td>345</td>
+						<td>11730</td>
+					</tr>
+					<tr>
+						<td>Oranges</td>
+						<td>34</td>
+						<td>345</td>
+						<td>11730</td>
+					</tr>
+					<tr class="bottomrow">
+						<td></td>
+						<td></td>
+						<td  class="text-right font-weight-bold">Subtotal:</td>
+						<td  class="text-center ">20</td>
+					</tr>
+					<tr >
+						<td></td>
+						<td></td>
+						<td  class="text-right font-weight-bold">Tax:</td>
+						<td  class="text-center ">20</td>
+					</tr>
+					<tr >
+						<td></td>
+						<td></td>
+						<td  class="text-right font-weight-bold">Total:</td>
+						<td  class="text-center ">20</td>
+					</tr>
+					<tr >
+						<td></td>
+						<td></td>
+						<td  class="text-right font-weight-bold">Paid:</td>
+						<td  class="text-center ">20</td>
+					</tr>
+					<tr >
+						<td></td>
+						<td></td>
+						<td  class="text-right font-weight-bold">Balance:</td>
+						<td  class="text-center ">20</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+
+
 	</div>
 
 </div>
