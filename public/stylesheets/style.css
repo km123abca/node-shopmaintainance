@@ -17,3 +17,24 @@ label{
 	font-weight: bold;
 	font-size:3em;
 }
+
+#salesFlexBox{
+	display: flex;
+}
+.labinelem{
+	width:50%;
+	border:1px solid red;
+}
+
+.ipane{
+	margin:0 auto;
+	width:30%;
+	border:2px solid black;
+}
+.ibtn{
+	width:20px;
+}
+.left-child {
+  margin-left: 0;
+  margin-right: auto;
+}

@@ -13,6 +13,7 @@ const bodyParser=require('body-parser');
 const err_mid =require('./error_middleware');
 const path = require('path');
 const inventoryRoutes=require('./routes/inventory');
+const salesRoutes=require('./routes/sales');
 
 const app=express();
 app.engine('.hbs',expressHbs(
@@ -53,6 +54,7 @@ app.use(bodyParser.json());
 
 
 app.use('/inventory',inventoryRoutes);
+app.use('/sales',salesRoutes);
 app.use(err_mid.notFound);
 app.use(err_mid.errorHandler);
 module.exports=app;

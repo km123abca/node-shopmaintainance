@@ -1,0 +1,167 @@
+<head>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">  
+  
+<link   rel="stylesheet" 
+        href="https://use.fontawesome.com/releases/v5.9.0/css/all.css" 
+        integrity="sha384-i1LQnF23gykqWXg6jxC2ZbCbUMxyw5gLZY6UiUS98LYV5unm8GWmfkIS6jqJfb4E" 
+        crossorigin="anonymous">
+	<style type="text/css">
+					body {
+					  padding: 50px;
+					  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+					  background: linear-gradient(to right, #808080,#80ff80);			  
+					     }
+
+					label{
+						font-weight: bold;
+					}
+					.largeTo{
+						margin-top:50px;
+						/*border:2px solid black;*/
+					}
+					.largeFont{
+						font-weight: bold;
+						font-size:3em;
+					}
+
+					#salesFlexBox{
+						/*display: flex;*/
+					}
+					.ipane{
+						margin:0 auto;
+						/*width:33%;*/
+						border:2px solid black;
+					}
+					.labinelem{
+						width:40%;
+						text-align: right;
+					}
+					#iteminfo
+					          {					          	
+					          	margin:auto;
+					          	max-width: 90%;
+					          	/*border:1px solid black;*/
+					          	padding-top:10px;
+					          	padding-bottom:10px;
+					          }
+
+					
+					.ibtn{
+						width:20px;
+					}
+					.left-child {
+					  margin-left: 0;
+					  margin-right: auto;
+					}
+					.btn-flex{
+						display: flex;
+					}
+					#del-btn{
+						margin:auto;						
+					}
+					#numpad{
+						
+						/*display:inline-block;*/
+						margin:auto;
+						max-width: 70%
+					}
+					.nbtn{
+						width: 50px;
+						margin: 5px;
+					}
+					
+
+	</style>
+</head>
+
+<body>
+<div class="container-fluid">
+<div id="salesFlexBox" class="row">
+	<div id="billingpane" class="ipane col-lg-3 col-md-12 col-sm-12">
+
+	  <div id="iteminfo">
+	  	 <div class="labin">
+	  	 	<label class="labinelem">Item Name:</label>
+	  	 	<input type='text' class="labinelem" id="itemname" />
+	  	 </div>
+	  	 <div class="labin">
+	  	 	<label class="labinelem">Description:</label>
+	  	 	<input type='text' class="labinelem" id="desc" />
+	  	 </div>
+	  	 <div class="labin">
+	  	 	<label class="labinelem">Price:</label>
+	  	 	<input type='text' class="labinelem" id="price" />
+	  	 </div>
+	  	 <div class="labin">
+	  	 	<label class="labinelem">Quantity:</label>
+	  	 	<input type='text' class="labinelem" id="qty" />
+	  	 </div>
+	  	 <div class="labin">
+	  	 	<label class="labinelem">Scan Item:</label>
+	  	 	<input type='text' class="labinelem" id="scanid" />
+	  	 </div>
+	  	 <div class="btn-flex">
+	  	 <button class="btn btn-danger btn-sm" id="del-btn">Delete</button>
+	  	 </div>
+	  </div>
+
+	  <div id="numpad">
+	  	<div class='btn-row'>
+	  		<button class="btn btn-success nbtn">1</button>
+	  		<button class="btn btn-success nbtn">2</button>
+	  		<button class="btn btn-success nbtn">3</button>
+	  	</div> 
+	  	<div class='btn-row'>
+	  		<button class="btn btn-success nbtn">4</button>
+	  		<button class="btn btn-success nbtn">5</button>
+	  		<button class="btn btn-success nbtn">6</button>
+	  	</div>
+	  	<div class='btn-row'>
+	  		<button class="btn btn-success nbtn">7</button>
+	  		<button class="btn btn-success nbtn">8</button>
+	  		<button class="btn btn-success nbtn">9</button>
+	  	</div>
+	  	<div class='btn-row'>
+	  		<button class="btn btn-success nbtn">0</button>
+	  		<button class="btn btn-success nbtn">CLR</button>
+	  		<button class="btn btn-success nbtn">.</button>
+	  	</div>
+	  </div>	
+
+	</div>
+
+
+	<div id="cashpane" class="ipane col-lg-3 col-md-12 col-sm-12">
+		<div id="cashpane1">
+			<table class="table table-striped">
+				<tbody>
+					<tr>
+				    	<td class="text-right">Subtotal:</td>
+				    	<td>am</td>
+				    </tr>
+				    <tr>
+				    	<td class="text-right">Tax:</td>
+				    	<td></td>
+				    </tr>
+				    <tr>
+				    	<td class="text-right">Total:</td>
+				    	<td></td>
+				    </tr>
+				</tbody>				
+			</table>
+		</div>
+
+		<div id="cashpane2">
+			fdfd
+		</div>
+	</div>
+
+	<div id="summarypane" class="ipane col-lg-3 col-md-12 col-sm-12" >
+		fdf
+	</div>
+
+</div>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</body>
