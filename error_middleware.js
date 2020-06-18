@@ -3,7 +3,10 @@ const notFound= (req,res,next)=>
  				 {
  				 	const error=new Error('Not Found=>'+req.originalUrl);
  				 	error.status=404;
- 				 	next(error);
+ 				 	var image_loc="./uploads/cena.jpg";
+ 				 	res.status(404);
+ 				 	res.render('page404',{imloc:image_loc});
+ 				 	// next(error);
  				 };
 
 
