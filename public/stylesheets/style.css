@@ -18,26 +18,111 @@ label{
 	font-size:3em;
 }
 
-#salesFlexBox{
-	display: flex;
-}
-.labinelem{
-	width:50%;
-	border:1px solid red;
-}
 
-.ipane{
-	margin:0 auto;
-	width:30%;
-	border:2px solid black;
-}
-.ibtn{
-	width:20px;
-}
-.left-child {
-  margin-left: 0;
-  margin-right: auto;
-}
+
+
+
+
+       #salesFlexBox{
+						/*display: flex;*/
+						padding-top:50px;
+					}
+					.ipane{
+						margin:0 auto;
+						/*width:33%;*/
+						border:2px solid black;
+						margin-bottom: 50px;
+					}
+					.labinelem{
+						width:40%;
+						text-align: right;
+					}
+					#iteminfo
+					          {					          	
+					          	margin:auto;
+					          	max-width: 90%;
+					          	/*border:1px solid black;*/
+					          	padding-top:10px;
+					          	padding-bottom:10px;
+					          }
+
+					
+					.ibtn{
+						width:20px;
+					}
+					.left-child {
+					  margin-left: 0;
+					  margin-right: auto;
+					}
+					.btn-flex{
+						display: flex;
+					}
+					#del-btn{
+						margin:auto;						
+					}
+					#numpad{
+						
+						/*display:inline-block;*/
+						margin:auto;
+						max-width: 70%
+					}
+					.nbtn{
+						width: 45px;
+						margin: 5px;
+					}
+					#cashpane1{
+						/*border:2px solid black;*/
+						/*margin-top:5px;*/
+						/*top: 3px;
+						position: absolute;
+						width:100%;	
+						left:0px;*/
+						margin-bottom: 40px;
+						margin-top:20px;
+						/*border:2px solid black;*/
+					}	
+					#cashpane2{
+						/*bottom: 3px;
+						position: absolute;
+						width:100%;	
+						left:0px;*/					
+					}	
+					.headrow{
+						border-style: dotted;
+						border-left: none;
+						border-right: none
+					}	
+					.bottomrow{
+						border-style: dotted;
+						border-left: none;
+						border-right: none;
+						border-bottom: none;
+
+					}
+					#pricetable{
+						/*position: absolute;
+						width:100%;
+						left*/:0px;
+					}	
+					.full-line{
+						/*position: absolute;
+						width:100%;
+						left:0px;*/
+						/*margin-top:3px;
+						margin-bottom: 3px;*/
+					}	
+					table#ptable tr{
+						line-height:4px;
+						/*border:3px solid yellow;*/
+					}
+					#summarypane{
+						overflow: auto;
+					}
+
+
+
+
+
 
 
 .containercustom {
