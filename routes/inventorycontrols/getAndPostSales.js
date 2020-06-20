@@ -7,14 +7,14 @@ const getSalesPage=(req,res)=>{
 						      };
 const getDetailsWithID=(req,res)=>{
 									var Product_id=req.body.Product_id;
-									w2file("in here"+Product_id);
+									//w2file("in here"+Product_id);
 									productsx.find({Product_id:Product_id})
 									         .exec()
 									         .then(
 									         		docs=>
 									         		      {
 									         		      	if(docs.length==0)
-									         		      	{  w2file("about");
+									         		      	{  //w2file("Product does not exist in that id");
 									         		      		res.status(203)
 									         		      		   .json(
 									         		      		   		  {
@@ -23,15 +23,15 @@ const getDetailsWithID=(req,res)=>{
 									         		      			    );
 									         		      	}
 									         		      	else
-									         		      	{
+									         		      	{   //w2file("a product does exist");
 									         		      		res.status(200)
 									         		      		   .json(
 									         		      		   	      {
 									         		      		   	      	message:"found",
-									         		      		   	      	Product_Name:Product_Name,
-                                        	  	 		                    Product_Desc:Product_Desc,
-                                        	  	 		                    Product_Qty :Product_Qty,                                        	  	 		                  
-                                                                            Product_Price:Product_Price,  
+									         		      		   	      	Product_Name:docs[0].Product_Name,
+                                        	  	 		                    Product_Desc:docs[0].Product_Desc,
+                                        	  	 		                    Product_Qty :docs[0].Product_Qty,                                        	  	 		                  
+                                                                            Product_Price:docs[0].Product_Price,  
 									         		      		   	      }
 									         		      		   	    );
 									         		      	}

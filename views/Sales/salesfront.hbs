@@ -17,11 +17,11 @@
 	  	 </div>
 	  	 <div class="labin">
 	  	 	<label class="labinelem">Quantity:</label>
-	  	 	<input type='text' class="labinelem" id="qty" />
+	  	 	<input type='text' class="labinelem" id="qty" onfocus="assignFocus(this)" />
 	  	 </div>
 	  	 <div class="labin">
 	  	 	<label class="labinelem">Scan Item:</label>
-	  	 	<input type='text' class="labinelem" id="scanid"  />
+	  	 	<input type='text' class="labinelem" id="scanid" onfocus="assignFocus(this)" />
 	  	 </div>
 	  	 <div class="btn-flex">
 	  	 <button class="btn btn-danger btn-sm" id="del-btn">Delete</button>
@@ -124,7 +124,7 @@
 					</tr>
 				</thead>
 
-				<tbody>
+				<tbody id="billing-tbody">
 					<tr>
 						<td>Apple</td>
 						<td>34</td>
