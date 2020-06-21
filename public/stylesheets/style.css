@@ -119,6 +119,9 @@ label{
 					#summarypane{
 						overflow: auto;
 					}
+					.colored_row{
+						background-image:linear-gradient(to right,#ff9980,#8080ff);
+					}
 
 
 

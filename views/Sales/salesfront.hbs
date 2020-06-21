@@ -4,15 +4,15 @@
 
 	  <div id="iteminfo">
 	  	 <div class="labin">
-	  	 	<label class="labinelem">Item Name:</label>
+	  	 	<label class="labinelem" >Item Name:</label>
 	  	 	<input type='text' class="labinelem" id="itemname" />
 	  	 </div>
 	  	 <div class="labin">
-	  	 	<label class="labinelem">Description:</label>
+	  	 	<label class="labinelem" >Description:</label>
 	  	 	<input type='text' class="labinelem" id="desc" />
 	  	 </div>
 	  	 <div class="labin">
-	  	 	<label class="labinelem">Price:</label>
+	  	 	<label class="labinelem" >Price:</label>
 	  	 	<input type='text' class="labinelem" id="price" />
 	  	 </div>
 	  	 <div class="labin">
@@ -60,15 +60,15 @@
 				<tbody>
 					<tr>
 				    	<td class="text-right font-weight-bold">Subtotal:</td>
-				    	<td>am</td>
+				    	<td id="subtotal_pane2">0</td>
 				    </tr>
 				    <tr>
 				    	<td class="text-right font-weight-bold">Tax:</td>
-				    	<td></td>
+				    	<td id="tax_pane2"></td>
 				    </tr>
 				    <tr>
 				    	<td class="text-right font-weight-bold">Total:</td>
-				    	<td></td>
+				    	<td id="total_pane2"></td>
 				    </tr>
 				</tbody>				
 			</table>
@@ -79,7 +79,13 @@
 				<tbody>
 					<tr>
 				    	<td class="text-right font-weight-bold">Paytype:</td>
-				    	<td>am</td>
+				    	<td>
+				    		<select>
+				    			<option>Cash</option>
+				    			<option>Card</option>
+				    			<option>Cheque</option>
+				    		</select>
+				    	</td>
 				    </tr>
 				    <tr>
 				    	<td class="text-right font-weight-bold">Payment:</td>
@@ -125,7 +131,8 @@
 				</thead>
 
 				<tbody id="billing-tbody">
-					<tr>
+
+					<!-- <tr>
 						<td>Apple</td>
 						<td>34</td>
 						<td>345</td>
@@ -136,36 +143,38 @@
 						<td>34</td>
 						<td>345</td>
 						<td>11730</td>
-					</tr>
-					<tr class="bottomrow">
+					</tr> -->
+
+
+					<tr class="bottomrow" id="pane3bottomrow">
 						<td></td>
 						<td></td>
 						<td  class="text-right font-weight-bold">Subtotal:</td>
-						<td  class="text-center ">20</td>
+						<td  class="text-center" id="subtotal_pane3">0</td>
 					</tr>
 					<tr >
 						<td></td>
 						<td></td>
 						<td  class="text-right font-weight-bold">Tax:</td>
-						<td  class="text-center ">20</td>
+						<td  class="text-center" id="tax_pane3">0</td>
 					</tr>
 					<tr >
 						<td></td>
 						<td></td>
 						<td  class="text-right font-weight-bold">Total:</td>
-						<td  class="text-center ">20</td>
+						<td  class="text-center" id="total_pane3">0</td>
 					</tr>
 					<tr >
 						<td></td>
 						<td></td>
 						<td  class="text-right font-weight-bold">Paid:</td>
-						<td  class="text-center ">20</td>
+						<td  class="text-center" id="paid_pane3">0</td>
 					</tr>
 					<tr >
 						<td></td>
 						<td></td>
 						<td  class="text-right font-weight-bold">Balance:</td>
-						<td  class="text-center ">20</td>
+						<td  class="text-center" id="bal_pane3">0</td>
 					</tr>
 				</tbody>
 			</table>
