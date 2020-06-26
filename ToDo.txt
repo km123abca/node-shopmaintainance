@@ -21,8 +21,12 @@
    pivoted and decided to use
    mongo "mongodb+srv://node-rest-shop-cqnpt.mongodb.net/test"  --username kitchuadmin
 
-[] npm install --save body-parser  for parsing body of a request    eg: req.body.productId
-[] create nodemon.json at the root to store process.env. variables like mongodb password
+[x] npm install --save body-parser  for parsing body of a request    eg: req.body.productId
+[x] create nodemon.json at the root to store process.env. variables like mongodb password
    process.env.MONGO_ATLAS_PW
-[] create inventory.js, Sales.js and Bills.js inside the models folder.
+[x] create inventory.js, Sales.js and Bills.js inside the models folder.
+[x]construct the inventory page with functionality to display and add inventory
+[] create set up to delete inventory items
+[x] create a billing pane in the sales page and create a numpad. Add functionality
+[] create set up so that sold numberes get auto reducted from inventory count
 

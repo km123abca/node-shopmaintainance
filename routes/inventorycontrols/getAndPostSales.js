@@ -1,7 +1,37 @@
 const productsx=require('../../models/productsx');
+const salesx=require('../../models/sales');
+const billsx=require('../../models/bills');
 const mongoose=require('mongoose');
 const w2file=require('../../filesaver');
 
+
+const updateBill= (req,res)=>{
+								var listOfItems=req.body.bill;
+								let bill_id_new;
+								billsx.findOne()
+								      .sort('-Bill_id')
+								      .exec()
+								      .then(
+								      		docs=>{
+								      			    if(docs.length==0)
+								      			    {
+								      			    	bill_id_new=1000;
+								      			    }
+								      			  }
+								      	   )
+								      .catch(err=>	
+	  	   				                       {
+						  	   					console.log(err);
+						  	   					res.status(500).json(
+						  	   											{
+						  	   												message:"error while searching",
+						  	   												error:err,
+						  	   											}
+						  	   										);
+	  	   				                       }
+										    );
+
+							 };
 const getSalesPage=(req,res)=>{
 								res.render('Sales/salesfront');
 						      };
