@@ -1,4 +1,11 @@
 <div class="container-fluid">
+	<div class="loading" id="loading" style="position:absolute;z-index: 1;width:100%;display:none;">
+	    <img
+	      src="https://raw.githubusercontent.com/CodingGarden/meower/master/client/loading.gif"
+	      alt=""
+	      style="margin-left:25%;"
+	    />
+	 </div>
 <div id="salesFlexBox" class="row">
 	<div id="billingpane" class="ipane col-lg-4 col-md-12 col-sm-12">
 
@@ -89,7 +96,18 @@
 				    </tr>
 				    <tr>
 				    	<td class="text-right font-weight-bold">Payment:</td>
-				    	<td><input type="text" id="pment" onfocus="assignFocus(this)" /></td>
+				    	<td>
+				    		<input type="text" 
+				    		       id="pment"
+				    		       onclick="assignFocus(this)"				    		       
+				    		 />
+				    		<br/>
+				    		<button class="button btn-success btn-sm"	
+				    		        onclick="computeBalance()"			    		       
+				    		>
+				    			Pay
+				    		</button>
+				        </td>
 				    </tr>
 				    <tr>
 				    	<td class="text-right font-weight-bold">Balance:</td>
@@ -114,10 +132,17 @@
 		<div class="text-center mt-2 mb-2">
 			<span id="dtlabel" class="font-weight-bold">Date:</span>
 			<span id="rcptdt"></span>
+			<script>
+				document.querySelector("#rcptdt").innerHTML=(new Date()).toLocaleDateString("en-GB");
+			</script>
 		</div>
 		<div class="text-center mt-2 mb-2">
 			<span id="cslabel" class="font-weight-bold">Cashier:</span>
-			<span id="csnm"></span>
+			<span id="csnm"><input 
+								  id="cashier",
+								  type="text"
+				            />
+			</span>
 		</div>
 
 		<div id="pricetable">

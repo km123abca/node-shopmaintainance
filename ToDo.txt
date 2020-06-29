@@ -28,5 +28,8 @@
 [x]construct the inventory page with functionality to display and add inventory
 [] create set up to delete inventory items
 [x] create a billing pane in the sales page and create a numpad. Add functionality
-[] create set up so that sold numberes get auto reducted from inventory count
+[x] create set up so that sold numberes get auto reducted from inventory count
+[] Sales Report and Bill Summary Page
+[] Print Bill Page
+[] A loading Widget
 

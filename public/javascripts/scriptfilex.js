@@ -2,12 +2,108 @@ let focussed_input="none";
 let active_row=-1;
 let totalValue=0;
 let live_bill=[];
+let presentStock=-1;
 
+function get_stuff_from_parent_url(pivot_word='=',pos=0)
+					{
+						var pv=pivot_word,extracted_variable;
+						var extracted_variable=-1
+			   	 		if(parent.document.URL.indexOf('=')!=-1)
+						    {
+						    	var symb_pos=parseInt(parent.document.URL.indexOf(pv,pos));
+						    	var num_chars= parent.document.URL.length-symb_pos;			    	
+						    	
+								extracted_variable=(parent.document.URL.substr(symb_pos+1, num_chars));	
+						    }
+						if(extracted_variable==-1)
+							return '';
+						return extracted_variable;
+			    	}
 
+function showPop(bid)
+	{
+		let pment,paybal;
+		let cashier=document.querySelector("#cashier").value
+		pment=document.querySelector("#pment").value;
+		paybal=document.querySelector("#paybal").innerHTML;
+		let dataPrep={ 
+			           "bill_id":bid,
+			           "live_bill":live_bill,
+			           "cashier":cashier,
+			           "pment":pment,
+			           "paybal":paybal,
+			         };
+	    dataPrep=JSON.stringify(dataPrep);
+	    console.log(dataPrep);
+		window.open(`/html/pop.html?data=${dataPrep}`,'popup_win','menubar=no,scrollbars=no, width=400,height=600');
+	}
+function showWait()
+	{
+		document.querySelector("#loading").style.display="block";
+	}
+function haltWait()
+	{
+		document.querySelector("#loading").style.display="none";
+	}
 
+function clearAll()
+	{		
+		live_bill=[];
+		totalValue=0;
+		active_row=-1;
+		val_list=['itemname','desc','price','qty','scanid','pment'];
+		innerHTML_list=['subtotal_pane2','tax_pane2','total_pane2','paybal'];
+		for(var a of innerHTML_list)		
+			document.querySelector("#"+a).innerHTML="";
+		for(var b of val_list)
+			document.querySelector("#"+b).value="";	
+
+		// var srows=document.getElementsByClassName("salesRow");
+		// for(var i=0;i<srows.length;i++)
+		//     elem.remove(0);	
+		$('.salesRow').remove();
+	}
+function computeBalance()
+	{
+
+		if(document.querySelector("#pment").value=="")
+		{
+		  showModal_k("Error","Enter the Paid Amount");
+		  return false;	
+		}
+		let paidAmt=parseFloat(document.querySelector("#pment").value);
+		let toPayAmt=parseFloat(document.querySelector("#total_pane2").innerHTML);
+
+		if(paidAmt<toPayAmt)
+			{
+				showModal_k("not Enought","Payment is short");
+				return false;
+			}
+		else
+			{
+				document.querySelector("#paybal").innerHTML=(paidAmt-toPayAmt).toFixed(2);
+			}
+	}
 function printbill()
 	{
+		if(active_row==-1)
+		{
+			showModal_k("Error","You have to Make a Bill First");
+			return false;
+		}
+		if(document.querySelector("#paybal").innerHTML=="")
+		{
+		  showModal_k("Error","Enter the Paid Amount");
+		  return false;	
+		}
+        /*
+		if(document.querySelector("#pment").value=="")
+		{
+		  showModal_k("Error","Enter the Paid Amount");
+		  return false;	
+		}
 		let paidAmt=parseFloat(document.querySelector("#pment").value);
+
 		let toPayAmt=parseFloat(document.querySelector("#total_pane2").innerHTML);
 		if(paidAmt<toPayAmt)
 			{
@@ -18,8 +114,40 @@ function printbill()
 			{
 				document.querySelector("#paybal").innerHTML=(paidAmt-toPayAmt).toFixed(2);
 			}
+        */
 		//todo sent the bill data to server
-		
+		let cashier=document.querySelector("#cashier").value;
+		if(cashier=="") 
+			cashier="Anonymous";
+		fetch('sales/logbill',
+			                 {
+			                 	method:'POST',
+			                 	body:JSON.stringify({bill:live_bill,cashier:cashier}),
+			                 	headers:{
+			                 			  "content-type":"application/json",
+			                 	        }
+			                 }
+			 )		     
+		     .then(
+			         (response)=>
+						          {						          	
+						          	return response.json();
+						          }
+			       )
+		     .then(
+		     		(response)=>
+		     					{
+		     						showModal_k("New Bill",response.bill_id+" generated");
+		     						showPop(response.bill_id);
+		     						clearAll();
+		     					}
+		     	  )
+		     .catch(
+		     	  	(err)=>{
+		     	  		showModal_k("error",err);
+		     	  	}
+		     	  );
+
 	}
 // function that updates a bill variable as new products are added
 function updateLiveBill(pr_id,qty)
@@ -76,14 +204,26 @@ function typed(elem)
 	    	return false;
 	    	}
 	    let prevPricex=document.getElementsByClassName('salesRow')[active_row].querySelector("#ptotpr").innerHTML;
+
+	    //allow qty increase only in case stock is available
+	    let pres_stock=document.getElementsByClassName('salesRow')[active_row].querySelector("#pr_stk").value;
+	    if(parseInt(document.querySelector("#qty").value+elem.innerHTML)>parseInt(pres_stock))
+	    	{
+	    		showModal_k(`error`,`Inventory short, only ${pres_stock} available`);
+	    		return false;
+	    	}
+
 	    prevPricex=parseFloat(prevPricex);
-	    totalValue-=prevPricex;    	
+	    totalValue-=prevPricex;
+
  		document.querySelector("#qty").value+=elem.innerHTML; 		
- 		document.getElementsByClassName('salesRow')[active_row].querySelector("#pqty").innerHTML=elem.innerHTML;
+ 		document.getElementsByClassName('salesRow')[active_row].querySelector("#pqty").innerHTML=
+ 		document.querySelector("#qty").value;
  		var pricex=document.getElementsByClassName('salesRow')[active_row].querySelector("#pprice").innerHTML;
  		document.getElementsByClassName('salesRow')[active_row].querySelector("#ptotpr").innerHTML=
- 		              parseFloat(elem.innerHTML)*parseFloat(pricex);
- 		totalValue+=parseFloat(elem.innerHTML)*parseFloat(pricex);
+ 		                parseFloat(document.querySelector("#qty").value)*parseFloat(pricex);
+ 		             // parseFloat(elem.innerHTML)*parseFloat(pricex);
+ 		totalValue+=parseFloat(document.querySelector("#qty").value)*parseFloat(pricex);
  		updateSubtotal_2pane(totalValue);
  		updateSubtotal_3pane(totalValue);
       
@@ -125,6 +265,7 @@ function checkWithServer(new_id)
 	{
 		if(new_id.length<4)
 			 return false;
+		showWait();
 		fetch('sales/withid',
 			                 {
 			                 	method:'POST',
@@ -142,9 +283,10 @@ function checkWithServer(new_id)
 			       )
 			  .then(
 			  	     (response)=>{
-
-						  	     if(response.message=="found")
+ 								haltWait();
+						  	     if ((response.message=="found")&&(response.Product_Qty>0))
 						  	     	{
+						  	     	
 						  	     	document.querySelector("#itemname").value =response.Product_Name;
 						  	     	document.querySelector("#desc").value     =response.Product_Desc;
 						  	     	document.querySelector("#qty").value      =1;
@@ -152,6 +294,7 @@ function checkWithServer(new_id)
 						  	     	let stringToPush=`<tr class="salesRow">
 						  	     	<input type="hidden" id="p_esc" value="${response.Product_Desc}"/>
 									<input type="hidden" id="pr_id" value="${new_id}"/>
+									<input type="hidden" id="pr_stk" value="${response.Product_Qty}"/>
 						  	     						<td id="pna_e">${response.Product_Name}</td>
 														<td id="pqty">1</td>
 														<td id="pprice">${response.Product_Price}</td>
@@ -162,7 +305,9 @@ function checkWithServer(new_id)
 						  	     	 live_bill.push(
 						  	     	 				{
 						  	     	 					"Product_id":new_id,
-						  	     	 					"qty":1,						  	     	 					
+						  	     	 					"qty":1,
+						  	     	 					"Product_Name":response.Product_Name,
+						  	     	 					"Product_Price":response.Product_Price,						  	     	 					
 						  	     	 				}
 						  	     	 	);
 
@@ -188,7 +333,10 @@ function checkWithServer(new_id)
 						  	     	}
 						  	     else
 						  	     	{
-						  	     		console.log("item was not found");
+						  	     		if(response.message!="found")
+						  	     		 showModal_k("Error","No Such item");
+						  	     		else
+						  	     			showModal_k("Error",response.Product_Name+" are out of stock");
 						  	     	}
 			  	                 }
 			  	   )
@@ -250,19 +398,41 @@ function checkWithServer(new_id)
 			mirrorActiveRow(); 
 
 
-
 		}
 
 	function mirrorActiveRow()
 		{
+			if(active_row==-1)
+				{		
+			document.querySelector("#itemname").value="";
+			document.querySelector("#desc").value="";
+			document.querySelector("#price").value="";
+			document.querySelector("#qty").value="";
+			    }
+			else{
 			let ac_ro=document.getElementsByClassName('salesRow')[active_row];
 			document.querySelector("#itemname").value=ac_ro.querySelector("#pna_e").innerHTML;
 			document.querySelector("#desc").value=ac_ro.querySelector("#p_esc").value;
 			document.querySelector("#price").value=ac_ro.querySelector("#pprice").innerHTML;
 			document.querySelector("#qty").value=ac_ro.querySelector("#pqty").innerHTML;
+				}
 		}
 
 	document.onkeyup = function (e) {
+
+
+	//Testing code to be deleted on Production
+     if(e.keyCode==37)
+     {
+     	console.log('showing wait');
+     	showWait();
+     }
+     else if(e.keyCode==39)
+     {
+     	console.log('halting wait');
+     	haltWait();
+     }
+
       // console.log(e.keyCode + " pressed");
       if(!document.getElementsByClassName("salesRow"))
       	return false;

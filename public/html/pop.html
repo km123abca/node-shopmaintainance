@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title id="title">Bill</title>
+	<script>
+		let bill_id,live_bill,data;
+		function get_stuff_from_parent_url(pivot_word='=',pos=0)
+					{
+						var pv=pivot_word,extracted_variable;
+						var extracted_variable=-1
+			   	 		if(parent.document.URL.indexOf('=')!=-1)
+						    {
+						    	var symb_pos=parseInt(parent.document.URL.indexOf(pv,pos));
+						    	var num_chars= parent.document.URL.length-symb_pos;			    	
+						    	
+								extracted_variable=(parent.document.URL.substr(symb_pos+1, num_chars));	
+						    }
+						if(extracted_variable==-1)
+							return '';
+						return extracted_variable;
+			    	}
+		function cleanString(data)
+			{
+				let itercontrol=1;
+				while(data.indexOf("%22")!=-1)
+				{
+					data=data.replace('%22','"');
+					itercontrol+=1;
+					if(itercontrol>1000) 
+						{
+							console.log('fatal break');
+							return "fail";
+							break;
+					    }
+				}
+				return data;
+			}
+		function loadData()
+			{
+				data=get_stuff_from_parent_url();
+				try{
+				    data=JSON.parse(cleanString(data));
+				   }
+				catch(err)
+					{
+						console.log("check data");
+						console.log(data);
+						return false;
+					}
+				bill_id  =data.bill_id;
+				live_bill=data.live_bill;
+				document.querySelector("#title").innerHTML="Bill No:"+bill_id;
+				document.querySelector("#bno").innerHTML="Bill No:"+bill_id;
+				document.querySelector("#dt").innerHTML=new Date().toLocaleDateString("en-GB");
+				document.querySelector("#ch").innerHTML="Cashier:"+data.cashier;
+				
+				var tot=0;
+				for(var x of data.live_bill)
+				{
+					tot+=parseFloat(x.qty)*parseFloat(x.Product_Price);
+					document.querySelector("#tbody").innerHTML+=
+					 `
+					     <tr>
+					     	<td>${x.Product_Name}</td>
+					     	<td>${x.qty}</td>
+					     	<td>${x.Product_Price}</td>
+					     	<td>${(parseFloat(x.qty)*parseFloat(x.Product_Price)).toFixed(2)}</td>
+					     </tr>
+					 `;
+				}
+				let tax=parseFloat(tot*0.05).toFixed(2);
+				let r_tot=parseFloat(parseFloat(tot)+parseFloat(tax)).toFixed(2);
+				document.querySelector("#tbody").innerHTML+=
+					 `
+					     <tr>
+					     	<td colspan="2">Subtotal:</td>					     	
+					     	<td colspan="2" class="summary">${tot}</td>					     	
+					     </tr>
+					     <tr>
+					     	<td colspan="2">Tax:</td>					     	
+					     	<td colspan="2" class="summary">${tax}</td>					     	
+					     </tr>
+					     <tr>
+					     	<td colspan="2" class="summary bt">Total:</td>					     	
+					     	<td colspan="2" class="summary">${r_tot}</td>					     	
+					     </tr>
+					     <tr>
+					     	<td colspan="2" class="summary bt">Paid:</td>					     	
+					     	<td colspan="2" class="summary">${data.pment}</td>					     	
+					     </tr>
+					     <tr>
+					     	<td colspan="2" class="summary bt">Balance:</td>					     	
+					     	<td colspan="2" class="summary">${data.paybal}</td>					     	
+					     </tr>
+					 `;
+
+			}
+		
+	</script>
+	<style>
+	  		table{
+                  width:100%;
+                 }
+		table tr:nth-child(even) 
+		         {
+				  background-color:#eee;
+			     }
+		table tr:nth-child(odd)  
+				{
+				  background-color:#fff;
+			    }
+
+		table th	 
+		        {
+				color:white;
+				background-color:black;
+			    }
+		.info
+			{
+				text-align: center;
+				font-weight: bold;
+			}
+		.summary
+			{
+				text-align: right;
+			}
+		.bt {
+			font-weight: bold;
+		}
+    </style>
+</head>
+<body>
+	<div class="info">Sales Receipt</div>
+	<div class="info">The KickAss Store</div>
+	<div class="info">342, Grove Street, Los Santos</div>
+	<div class="info">Phone:7458-125-125</div>
+	<hr/>
+	<div class="info" id="bno">Bill No:</div>
+	<div class="info" id="dt"></div>
+	<div class="info" id="ch">Cashier:</div>
+	<hr/>
+	<table>
+		<thead>
+			<tr>
+				<th>Item</th>
+				<th>Quantity</th>
+				<th>Price</th>
+				<th>Total</th>
+			</tr>
+		</thead>
+		<tbody id='tbody'>
+		</tbody>
+	</table>
+	<hr/>
+	<div class="info">Thank You, Come Again</div>
+</body>
+  <script>
+  	loadData();
+  </script>
+</html>
