@@ -17,6 +17,7 @@ const err_mid =require('./error_middleware');
 const path = require('path');
 const inventoryRoutes=require('./routes/inventory');
 const salesRoutes=require('./routes/sales');
+const userRoutes=require('./routes/usermgmt');
 
 const app=express();
 
@@ -79,6 +80,7 @@ app.use(bodyParser.json());
 
 app.use('/inventory',inventoryRoutes);
 app.use('/sales',salesRoutes);
+app.use('/user',userRoutes);
 app.use(err_mid.notFound);
 app.use(err_mid.errorHandler);
 module.exports=app;

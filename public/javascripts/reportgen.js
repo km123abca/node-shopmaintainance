@@ -1,4 +1,20 @@
 let bills;
+let order_dict={"Bill_id":0,"Datex":0,"Cashier":0,"total":0};
+function compare_vals(val1,val2,sortParam)
+	{
+		if(order_dict[sortParam]==0)
+		{
+			order_dict[sortParam]=1;
+			if(val1>val2) return true;
+			return false;
+		}
+		else
+		{
+			order_dict[sortParam]=0;
+			if(val1<val2) return true;
+			return false;
+		}
+	}
 function showBill(x)
 	{
 		let elem=document.querySelector(`#bill${x}`);
@@ -25,10 +41,23 @@ function loadBills()
 		     				return false;
 		     			}
 		     			bills=resp.bills;
-		     			
-		     			for(var bid in resp.bills)
+		     			loadBillData();     			
+		     				
+		     		}
+		     	      
+			 ).catch(
+			 	err=>{
+			 		document.querySelector("#err_msg").innerHTML=err;
+			 	}
+			 );
+	}
+
+function loadBillData()
+	{
+		document.querySelector("#rep_tab_body").innerHTML="";
+		for(var bid in bills)
 	     				{
-	     					bill=resp.bills[bid];
+	     					bill=bills[bid];
 	     					let innerstrr=`
 	     					         <table class="table table-dark" id="bill${bid}" style="display:none;">
 	     					           <thead>
@@ -87,11 +116,11 @@ function loadBills()
 	     					            </tbody>
 	     					            </table>
 	     					`;
+	     					bills[bid]["total"]=allTotal;
 	     					let strr=`
 	     					          <tr>
-	     					          <td><a href="javascript:showBill(${bid})"
-	     					                 style="font-weight:bold;color:black;"
-	     					              >${bill.Bill_id}</a></td>
+	     					          <td><a href="javascript:showBill(${bid})" class='blink'>	     					                 
+	     					              ${bill.Bill_id}</a></td>
 	     					          <td>${new Date(parseInt(bill.Datex)).toLocaleDateString('en-GB')}</td>
 	     					          <td>${bill.Cashier}</td>
 	     					          <td>${allTotal}</td>
@@ -103,18 +132,34 @@ function loadBills()
 	     					`;
 	     					document.querySelector("#rep_tab_body").innerHTML+=strr;
 	     				}
-		     				
-		     		}
-		     	      
-			 ).catch(
-			 	err=>{
-			 		document.querySelector("#err_msg").innerHTML=err;
-			 	}
-			 );
 	}
 loadBills();
 
-   
+function sortBills(sortParam)
+	{
+		
+		for(var i=bills.length-1;i>0;i--)
+		{
+			for(var j=0;j<i;j++)
+			{
+				/*
+				if(compare_vals(bills[j][sortParam],
+					            bills[j+1][sortParam],
+					            sortParam
+					            )
+				  )
+				  */
+				if(bills[j][sortParam]>bills[j+1][sortParam])
+				{
+					let temp=bills[j];
+					bills[j]=bills[j+1];
+					bills[j+1]=temp;
+				}
+			}
+		}
+
+		loadBillData();
+	}
 	 /*
 	 {"msg":"ok",
 	  "bills": 

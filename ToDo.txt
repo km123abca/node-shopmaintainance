@@ -29,7 +29,13 @@
 [] create set up to delete inventory items
 [x] create a billing pane in the sales page and create a numpad. Add functionality
 [x] create set up so that sold numberes get auto reducted from inventory count
-[] Sales Report and Bill Summary Page
-[] Print Bill Page
-[] A loading Widget
+[x] Sales Report and Bill Summary Page
+[x] Print Bill Page
+[x] A loading Widget
+[] Filter bills based on date, cashier, Total Amt.
+[x] npm install --save bcrypt  for encrypting passwords
+[] create a login logout system based on express sessions
+    npm install --save express-session
+[] install mongostore so that session variables may be stored in mongodb
+[] Create a register.hbs and login.hbs and approprate routes
 
