@@ -161,3 +161,44 @@ label{
 	font-weight:bold;
 	color:black;
 }
+
+/*#welcomepage{
+	background-image: url('/uploads/fruitFront.jpg');
+	height:300px;
+	background-repeat: no-repeat;
+	background-size:contain;
+}*/
+
+.tokenmaster
+	{
+	margin-top:10%;
+	box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+	background: linear-gradient(
+							    90deg,
+							    #80ffff 0%,    
+							    #d279a6 100%
+  							    );
+  	max-width:70%;
+  	margin:auto; 
+	}
+.tokensub{
+	 	 height:40px;
+  		 display:flex;
+  		 margin-bottom:40px;
+  		 margin-left:5px;
+		 }
+.stoken{
+		font-weight: bold;
+		height: 100%;
+		flex-grow:100;
+	   }
+.tokbutton
+		{
+		margin-right:10px;
+		margin-left:5px;
+		}
+.tokheading
+		{
+		   font-weight: bold;
+		   font-family: "Algerian"
+		}

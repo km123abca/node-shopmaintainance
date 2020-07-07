@@ -62,19 +62,47 @@ app.use('/uploads',express.static('uploads'));
 app.use(bodyParser.urlencoded({extended:false}));
 app.use(bodyParser.json());
 
-// app.use(
-// 		(req,res,next)=>
-// 						{
-// 							res.header('Access-Control-Allow-Origin','*');
-// 							res.header('Access-Control-Allow-Headers','Origin,X-Requested-With,Content-Type,Accept,Authorization');
-// 							if(req.method==='OPTIONS')
-// 							{
-// 								res.header('Access-Control-Allow-Methods','PUT,POST,PATCH,DELETE,GET');
-// 								return res.status(200).json({}); 
-// 							}
-// 							next(); //so that the flow may continue
-// 						}
-// 	   );
+
+var session=require('express-session');
+var MongoStore=require('connect-mongo')(session);
+app.use(session( 
+	            {
+	            	secret:'apple',
+	            	resave:false,
+	            	saveUninitialized:false,
+	            	store:new MongoStore({mongooseConnection:mongoose.connection}),
+	            	cookie:{maxAge: 180*60*1000}
+	            } 
+	           )
+       );
+
+app.use(
+			function(req,res,next)
+				{
+					if(!req.session.loggedin || req.session.loggedin=={})
+						{
+						res.locals.loggedin=false;
+						}
+					else
+						{
+						res.locals.loggedin=true;
+						res.locals.userx=req.session.loggedin.username;
+						res.locals.userprivilege=req.session.loggedin.privilege;
+						if(res.locals.userprivilege==1)
+							res.locals.privilegedUser=true;
+						else
+							res.locals.privilegedUser=false;
+						}
+					/*	
+					if(!req.session.error_messages || req.session.error_messages.length==0)
+						res.locals.error_messages=[];
+					else
+						res.locals.error_messages=req.session.error_messages;
+					req.session.error_messages=[];*/
+					next();
+				}
+	   );
+
 
 
 

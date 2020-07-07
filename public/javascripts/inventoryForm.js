@@ -13,7 +13,7 @@ form
 	                        	const Product_Price=formData.get("Product_Price");
 	                        	const Product_Image=formData.get("Product_Image");
 	                        	console.log(`${Product_Name} will be stored`);
-	                        	fetch('http://localhost:3001/inventory',
+	                        	fetch('/inventory',
 	                        		               {
 	                        		               	method:"POST",
 	                        		               	body:formData,

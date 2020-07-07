@@ -1,0 +1,15 @@
+<div class="tokenmaster">
+	<div><h3 class="tokheading">For High Privilege Registration:</h3></div>
+	<div class="tokensub">
+		<input type="text" id="hightoken" class="stoken" />
+		<button class="btn btn-primary tokbutton" onclick="genToken('high')">Generate</button>
+		<button class="btn btn-danger tokbutton" onclick="deleteToken('high')">Delete</button>
+	</div>
+	<div><h3 class="tokheading">For Low Privilege Registration:</h3></div>
+	<div class="tokensub">
+		<input type="text" id="lowtoken" class="stoken" />
+		<button class="btn btn-primary tokbutton" onclick="genToken('low')">Generate</button>
+		<button class="btn btn-danger tokbutton" onclick="deleteToken('low')">Delete</button>
+	</div>
+</div>
+<script type="text/javascript" src="/javascripts/pageHandlers/tokengenHandler.js"></script>

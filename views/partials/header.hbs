@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-  <a class="navbar-brand" href="/">Home</a>
+  <a class="navbar-brand" href="/user/welcome">Home</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
@@ -19,10 +19,19 @@
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           User Management
         </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-           <a class="dropdown-item" href="/user/profile">User Account</a>            
+        <div class="dropdown-menu darkdrop" aria-labelledby="navbarDropdown">
+          {{# if loggedin }}
+             {{# if privilegedUser }}
+             <a class="dropdown-item darkdrop" href="/user/genToken">Generate Token</a> 
+             {{/if}}
+             <a class="dropdown-item darkdrop" href="/user/userinfo">All Users</a> 
+            <a class="dropdown-item darkdrop" href="/user/logout">Logout</a>             
+          {{ else }}  
+            <a class="dropdown-item darkdrop" href="/user/register">Register</a>    
+            <a class="dropdown-item darkdrop" href="/user/login">Login</a>      
+          {{/if}}      
             <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="/user/logout">Logout</a>    
+            <a class="dropdown-item darkdrop disabled" href="#">Contact us</a>    
           
         </div>
       </li>
@@ -54,8 +63,12 @@
 
 
       <li class="nav-item">
-        <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">      
-                  Welcome Sales Clerk              
+        <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">    
+                  {{# if loggedin }} 
+                     Welcome {{userx}}
+                  {{ else }} 
+                    Welcome Sales Clerk  
+                  {{/if}}            
         </a>
       </li>
     </ul>

@@ -1,0 +1,178 @@
+<head>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">  
+  
+<link   rel="stylesheet" 
+        href="https://use.fontawesome.com/releases/v5.9.0/css/all.css" 
+        integrity="sha384-i1LQnF23gykqWXg6jxC2ZbCbUMxyw5gLZY6UiUS98LYV5unm8GWmfkIS6jqJfb4E" 
+        crossorigin="anonymous">
+	<style type="text/css">
+					body {
+					  padding: 50px;
+					  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+					  background: linear-gradient(to right, #808080,#80ff80);			  
+					     }
+
+					label{
+						font-weight: bold;
+					}
+					.largeTo{
+						margin-top:50px;
+						/*border:2px solid black;*/
+					}
+					.largeFont{
+						font-weight: bold;
+						font-size:3em;
+					}
+
+					#salesFlexBox{
+						/*display: flex;*/
+					}
+					.ipane{
+						margin:0 auto;
+						/*width:33%;*/
+						border:2px solid black;
+						margin-bottom: 50px;
+					}
+					.labinelem{
+						width:40%;
+						text-align: right;
+					}
+					#iteminfo
+					          {					          	
+					          	margin:auto;
+					          	max-width: 90%;
+					          	/*border:1px solid black;*/
+					          	padding-top:10px;
+					          	padding-bottom:10px;
+					          }
+
+					
+					.ibtn{
+						width:20px;
+					}
+					.left-child {
+					  margin-left: 0;
+					  margin-right: auto;
+					}
+					.btn-flex{
+						display: flex;
+					}
+					#del-btn{
+						margin:auto;						
+					}
+					#numpad{
+						
+						/*display:inline-block;*/
+						margin:auto;
+						max-width: 70%
+					}
+					.nbtn{
+						width: 50px;
+						margin: 5px;
+					}
+					#cashpane1{
+						/*border:2px solid black;*/
+						/*margin-top:5px;*/
+						/*top: 3px;
+						position: absolute;
+						width:100%;	
+						left:0px;*/
+						margin-bottom: 40px;
+						margin-top:20px;
+						/*border:2px solid black;*/
+					}	
+					#cashpane2{
+						/*bottom: 3px;
+						position: absolute;
+						width:100%;	
+						left:0px;*/					
+					}	
+					.headrow{
+						border-style: dotted;
+						border-left: none;
+						border-right: none
+					}	
+					.bottomrow{
+						border-style: dotted;
+						border-left: none;
+						border-right: none;
+						border-bottom: none;
+
+					}
+					#pricetable{
+						/*position: absolute;
+						width:100%;
+						left*/:0px;
+					}	
+					.full-line{
+						/*position: absolute;
+						width:100%;
+						left:0px;*/
+						/*margin-top:3px;
+						margin-bottom: 3px;*/
+					}	
+					table#ptable tr{
+						line-height:4px;
+						/*border:3px solid yellow;*/
+					}
+					#summarypane{
+						overflow: auto;
+					}
+
+					.tokenmaster{
+	box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+	background: linear-gradient(
+    90deg,
+    #80ffff 0%,    
+    #d279a6 100%
+  );
+  max-width:70%;
+  margin:auto;
+  
+
+ 
+}
+.tokensub{
+	 height:40px;
+  display:flex;
+  margin-bottom:40px;
+  margin-left:5px;
+}
+.stoken{
+	font-weight: bold;
+	height: 100%;
+	flex-grow:100;
+}
+.tokbutton{
+	margin-right:10px;
+	margin-left:5px;
+}
+.tokheading{
+	font-weight: bold;
+	font-family: "Algerian"
+}
+
+	</style>
+</head>
+
+<body>
+
+
+	<div class="tokenmaster">
+	<div><h3 class="tokheading">For High Privilege Registration:</h3></div>
+	<div class="tokensub">
+		<input type="text" id="hightoken" class="stoken" />
+		<button class="btn btn-primary tokbutton">Generate</button>
+		<button class="btn btn-danger tokbutton">Delete</button>
+	</div>
+	<div><h3 class="tokheading">For Low Privilege Registration:</h3></div>
+	<div class="tokensub">
+		<input type="text" id="lowtoken" class="stoken" />
+		<button class="btn btn-primary tokbutton">Generate</button>
+		<button class="btn btn-danger tokbutton">Delete</button>
+	</div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</body>

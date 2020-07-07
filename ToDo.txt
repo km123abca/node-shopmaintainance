@@ -34,8 +34,15 @@
 [x] A loading Widget
 [] Filter bills based on date, cashier, Total Amt.
 [x] npm install --save bcrypt  for encrypting passwords
-[] create a login logout system based on express sessions
-    npm install --save express-session
-[] install mongostore so that session variables may be stored in mongodb
-[] Create a register.hbs and login.hbs and approprate routes
+[x] create a login logout system based on express sessions
+[x]npm install --save express-session
+[x]npm install --save connect-mongo
+[x] npm install sanitize --save
+[x] install mongostore so that session variables may be stored in mongodb
+[x] Create a register.hbs and login.hbs and approprate routes
+[x] npm install --save express-validator
+[x]Store errors for use during redirects
+[] Create a page that displays all the registered user information
+[] Restrict access to certain pages based on privilege level.
+[] Make a table to store privilege tokens
 
