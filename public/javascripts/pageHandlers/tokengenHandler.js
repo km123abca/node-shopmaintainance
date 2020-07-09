@@ -19,14 +19,14 @@ function genOTP()
 function sendToServer(stat)
 	{
 		let inpelem=document.querySelector("#"+stat+"token");		
-
+		let priv=(stat=='high')?1:0;
         let elem=inpelem.value;
         // console.log(elem+' will be stored');
 		showWait();
 		fetch('/user/genToken',
 								{
 								 method:'POST',
-								 body  :JSON.stringify({Tokenstring:elem}),
+								 body  :JSON.stringify({Tokenstring:elem,priv:priv}),
 	                             headers:{
 	                                      "content-type":"application/json",
 	                                     },
@@ -44,6 +44,10 @@ function sendToServer(stat)
 			        				inpelem.select();
 									inpelem.setSelectionRange(0, 99999);
 									document.execCommand("copy");
+									}
+								else if(response.msg=="duplicate_error")
+									{
+										showModal_k("Server says",response.msg2);
 									}
 			        			else
 			        			{

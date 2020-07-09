@@ -18,11 +18,42 @@ const login=(req,res)=>{
 							req.session.messages=[];
 						res.render('UserMgmt/Login',{title:"Login",msg:msg,has_message:has_message});
 					   };
-const reg_user=(req,res)=>{
+const reg_user=async (req,res)=>{
 							var username=req.body.username;
 							var email=req.body.email;
 							var password=req.body.password;
 							var shopid=req.body.shid;
+							await regtoken.findOne({Tokenstring:shopid})
+							        .exec()
+							        .then(
+							        		doc=>{
+							        				if(doc)
+							        				{
+							        					doc.Consumer=username;
+							        					doc.save();
+							        				}
+							        				else
+							        				{
+							        					res.status(500).json(
+							        										  {
+							        										  	msg:"token_invalid",							        										  	
+							        										  }
+							        						                );
+							        				}
+							        			 }
+							        	 )
+							        .catch(
+							        		err=>
+							        		     {
+							        		     	res.status(500).json(
+							        		     						  {
+							        		     						  	msg:"error",
+							        		     						  	msg2:err,
+							        		     						  }
+							        		     		                );
+							        		     }
+							        	  );
+
 							var privilege=0;
 							if (shopid!=-1)
 								privilege=1;
@@ -191,6 +222,7 @@ const genToken_post=async (req,res)=>{
 								let present_user=req.session.loggedin.username;
 								let Privilege=req.session.loggedin.privilege;
 								let Tokenstring=req.body.Tokenstring;
+								let privx=req.body.priv;
 								// w2file(`created vars, user:${present_user},priv:${Privilege},token:${Tokenstring}`);
 								if(Privilege==0)
 								{
@@ -205,7 +237,7 @@ const genToken_post=async (req,res)=>{
 								await regtoken.findOne(
 												{
 												  Tokenstring:Tokenstring,
-												  Privilege:Privilege,	
+												  Privilege:privx,	
 												}
 									         ).exec()
 								              .then(
@@ -214,7 +246,7 @@ const genToken_post=async (req,res)=>{
 									         			  res.status(500).json(
 								      		  	 		                      {
 								      		  	 			                   msg:"duplicate_error",
-								      		  	 			                   msg2:"error while validating token",
+								      		  	 			                   msg2:"This is strange, please try again",
 								      		  	 		                      }
 							      		  	 		    					  );
 									         			  
@@ -236,7 +268,7 @@ const genToken_post=async (req,res)=>{
 													  {
 													  	Tokenstring:Tokenstring,
 													  	Creator:present_user,
-													  	Privilege:Privilege,
+													  	Privilege:privx,
 													  }
 									                );
 								
@@ -264,6 +296,62 @@ const genToken_post=async (req,res)=>{
 								        );
 
 							   };
+const privilegeCheck=(req,res,next)=>{
+									
+									if(req.session.loggedin.privilege!=1)
+										{
+											res.render('infoPage',{
+															       title:"Error",
+															       img:"edd.jpg",
+															       info:"You dont have the privilege to access this page",
+						                          				  }
+									                   );
+										}
+										else
+											return next();
+									
+							   };
+const kitchuCheck=(req,res,next)=>{
+									
+									if(req.session.loggedin.user=="kitchu")
+										{
+											res.render('infoPage',{
+															       title:"Error",
+															       img:"edd.jpg",
+															       info:"You cant access this page unless you are kitchu",
+						                          				  }
+									                   );
+										}
+									else
+										return next();
+									
+							   };
+const tokenInfo=(req,res)=>{
+							
+							regtoken.find()
+							        .lean()
+							        .exec()
+							        .then(							        	
+								        	docs=>{
+								    			    // w2file(docs.length+ " records found ");
+								    				res.render('UserMgmt/tokeninfo',
+								    					                {
+								    					                  title:"All tokens",
+								    					                  entries:docs,
+								    					                }
+								    					      );
+								    			  }							        	
+							        	 )
+							        .catch(err=>
+							    	        res.render('infoPage',{
+															       title:"Error",
+															       img:"edd.jpg",
+															       info:"There was a problem loading the page",
+						                          				  }
+						                              )
+							    	  );
+
+						   };
 const userInfo=(req,res)=>{
 							user.find({})
 							    .lean()
@@ -299,4 +387,7 @@ module.exports={
 				userInfo,
 				genToken,
 				genToken_post,
+				tokenInfo,
+				privilegeCheck,
+				kitchuCheck,
 			   };

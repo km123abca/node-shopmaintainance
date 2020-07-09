@@ -19,6 +19,7 @@ router.get('/info',userFns.infopage);
 router.get('/userinfo',userFns.userInfo);
 router.get('/genToken',userFns.genToken);
 router.post('/genToken',userFns.genToken_post);
+router.get('/seeTokens',userFns.privilegeCheck,userFns.tokenInfo);
 
 // router.post('/login',userFns.login_user);
 

@@ -1,0 +1,21 @@
+<table class="table table-dark table-striped">
+	<thead>
+		<tr>
+			<th>Who Created?</th>
+			<th>Token</th>
+			<th>Privilege Level</th>
+			<th>Who used</th>			
+		</tr>
+	</thead>
+
+	<tbody>
+		{{# each entries}}
+		    <tr>
+			<td>{{Creator}}</td>
+			<td>{{Tokenstring}}</td>
+			<td>{{Privilege}}</td>
+			<td>{{Consumer}}</td>
+		    </tr>
+		{{/each}}
+	</tbody>
+</table>

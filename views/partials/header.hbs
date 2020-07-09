@@ -7,9 +7,9 @@
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item active">
-        <a class="nav-link" href="/shopping-cart" id="scart"> 
+        <a class="nav-link" href="/inventory" id="scart"> 
           <i class="fas fa-shopping-cart"  ></i>
-          Shopping Bill        
+          Stock        
           
           <span class="sr-only">(current)</span>
         </a>
@@ -23,6 +23,7 @@
           {{# if loggedin }}
              {{# if privilegedUser }}
              <a class="dropdown-item darkdrop" href="/user/genToken">Generate Token</a> 
+             <a class="dropdown-item darkdrop" href="/user/seeTokens">See All Tokens</a> 
              {{/if}}
              <a class="dropdown-item darkdrop" href="/user/userinfo">All Users</a> 
             <a class="dropdown-item darkdrop" href="/user/logout">Logout</a>             

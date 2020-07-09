@@ -1,5 +1,5 @@
 
-function validity_check(username,password,password2,email)
+function validity_check(username,password,password2,email,shid)
 	{
 		if(username.trim()=="")
 			{ 
@@ -16,6 +16,11 @@ function validity_check(username,password,password2,email)
 				showModal_k("Form Error","Passwords dont match");
             return false;
 			}
+      if(shid.trim()=="")
+         { 
+            showModal_k("Form Error","No Token Provided");
+            return false;
+         }
 		var regex_var="^[a-z][a-z0-9]*@[a-z]+\.(com|in|org)";
 		var re=new RegExp(regex_var,"g");
 		if(email.search(re)!=0)
@@ -39,7 +44,7 @@ form.addEventListener("submit",
                                  	let email=formData.get("email");
                                  	let shid=formData.get("shid");
                                  	// if(shid=="") formData.set("shid","-1");
-                                    if(shid=="") shid=-1;
+                                    // if(shid=="") shid=-1;
                                     let data2send={
                                                    "username":username,
                                                    "password":password,
@@ -48,7 +53,7 @@ form.addEventListener("submit",
                                                   };
                                     data2send=JSON.stringify(data2send);
 
-                                 	if(!validity_check(username,password,password2,email))
+                                 	if(!validity_check(username,password,password2,email,shid))
                                  		return false;
                                     showWait();
                                  	fetch('register',
@@ -70,6 +75,11 @@ form.addEventListener("submit",
                                  			 			// showModal_k("Success",resp.msg+","+resp.msg2);
                                                    window.location.href='/user/login';
                                  			 		}	
+                                             else if(resp.msg=="token_invalid")
+                                                {
+                                                   haltWait();
+                                                   showModal_k("Invalid Token","The token you have entered is not valid");
+                                                }
                                  			 	else
                                  			 		{
                                                    haltWait();
