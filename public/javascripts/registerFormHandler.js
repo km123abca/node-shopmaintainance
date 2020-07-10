@@ -80,6 +80,11 @@ form.addEventListener("submit",
                                                    haltWait();
                                                    showModal_k("Invalid Token","The token you have entered is not valid");
                                                 }
+                                             else if(resp.msg=="token_used")
+                                                {
+                                                   haltWait();
+                                                   showModal_k("Used Token","This token was used previously by another user");
+                                                }
                                  			 	else
                                  			 		{
                                                    haltWait();

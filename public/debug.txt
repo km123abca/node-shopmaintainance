@@ -1,12 +1,7 @@
-in here
-here1
-here1
-here1
-created vars
-here1
-here1
-created vars, user:kitchu,priv:1,token:228634
-here1
-created vars, user:kitchu,priv:1,token:647538
-about to create token
-about to save token
+/seeTokens
+inside add new
+11 records found 
+{"Product_Date":"1591956925956","Product_Change_Date":"1591957038253","_id":"5ee3562ec00ab5098066bc81","Product_id":"1003","Product_Name":"Oranges","Product_Desc":"Oranges from Florida","Product_Qty":29,"Product_Image":"uploads\\6_12_2020Oranges.png","Product_Price":34,"__v":0}
+{"Product_Date":"1591956925956","Product_Change_Date":"1591957038253","_id":"5ee3562ec00ab5098066bc81","Product_id":"1003","Product_Name":"Oranges","Product_Desc":"Oranges from Florida","Product_Qty":28,"Product_Image":"uploads\\6_12_2020Oranges.png","Product_Price":34,"__v":0}
+{"Product_Date":"1591956925956","Product_Change_Date":"1591957038253","_id":"5ee3562ec00ab5098066bc81","Product_id":"1003","Product_Name":"Oranges","Product_Desc":"Oranges from Florida","Product_Qty":29,"Product_Image":"uploads\\6_12_2020Oranges.png","Product_Price":34,"__v":0}
+{"Product_Date":"1591956925956","Product_Change_Date":"1591957038253","_id":"5ee3562ec00ab5098066bc81","Product_id":"1003","Product_Name":"Oranges","Product_Desc":"Oranges from Florida","Product_Qty":28,"Product_Image":"uploads\\6_12_2020Oranges.png","Product_Price":34,"__v":0}

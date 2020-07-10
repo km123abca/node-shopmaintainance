@@ -13,6 +13,7 @@ form
 	                        	const Product_Price=formData.get("Product_Price");
 	                        	const Product_Image=formData.get("Product_Image");
 	                        	console.log(`${Product_Name} will be stored`);
+	                        	showWait();
 	                        	fetch('/inventory',
 	                        		               {
 	                        		               	method:"POST",
@@ -26,11 +27,13 @@ form
 	                        	.then( (resp)=>
 	                        		           {
 	                        			       // document.querySelector('#warn-i').innerHTML=resp.message;
+	                        			       haltWait();
 	                        			       showModal_k("Done",resp.message);
 	                        			       }
 	                        		 )
 	                        	.catch(err=>
 	                        		        {
+	                        		        	haltWait();
 	                        		        	document.querySelector('#warn-i').innerHTML=err;
 	                        		        }
 	                        		  );

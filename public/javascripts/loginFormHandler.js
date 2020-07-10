@@ -44,7 +44,10 @@ form.addEventListener("submit",
                                  			 		{
                                                    haltWait();
                                  			 			// showModal_k("Success",resp.msg+","+resp.msg2);
+                                                   if(resp.redir=="none")
                                                    window.location.href='/inventory';
+                                                   else
+                                                      window.location.href=resp.redir;
                                  			 		}	
                                  			 	else
                                  			 		{

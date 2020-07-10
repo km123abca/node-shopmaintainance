@@ -1,6 +1,10 @@
 <div id="infoPageBoard" 
      style="font-weight: bold;text-align: center;font-size: 36px;margin-top:5%;color:red;">
  		{{info}}
+ 		{{# if showprompt }}
+ 		    <br/>
+ 			<a href="/user/login">Login Here</a>
+ 		{{/if}}
 </div>
 <script type="text/javascript" src='/javascripts/pageHandlers/infoPageHandler.js'></script>
 <script>showImagexx("{{img}}")</script>

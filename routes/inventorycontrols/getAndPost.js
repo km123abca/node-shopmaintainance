@@ -58,6 +58,12 @@ const addNew=(req,res)=>
 const createNew=(req,res)=>
 							{
                                 // w2file("here at the route");
+                                if(!req.session.loggedin || req.session.loggedin.privilege!=1)
+                                  return res.status(500).json(
+                                                        {
+                                                          message:"privilege_error",
+                                                        }
+                                                      );
 								                var Product_id  =req.body.Product_id;
                                 var Product_Name=req.body.Product_Name;
                                 var Product_Desc=req.body.Product_Desc;

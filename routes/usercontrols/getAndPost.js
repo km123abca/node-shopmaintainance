@@ -27,10 +27,18 @@ const reg_user=async (req,res)=>{
 							        .exec()
 							        .then(
 							        		doc=>{
-							        				if(doc)
+							        				if ((doc)&&(doc.Consumer=='none'))
 							        				{
 							        					doc.Consumer=username;
 							        					doc.save();
+							        				}
+							        				else if(doc && doc.Consumer!='none')
+							        				{
+							        					res.status(500).json(
+							        										  {
+							        										  	msg:"token_used",							        										  	
+							        										  }
+							        						                );
 							        				}
 							        				else
 							        				{
@@ -156,10 +164,16 @@ const login_user=(req,res)=>{
 							      		  	 			                  email   :doc.email,
 							      		  	 			                  privilege:doc.privilege,
 							      		  	 		                     };
+							      		  	 		if(req.session.oldUrl)
+							      		  	 			redir=req.session.oldUrl;
+							      		  	 		else
+							      		  	 			redir="none";
+							      		  	 		req.session.oldUrl=false;
 							      		  	 		res.status(200).json(
 							      		  	 		                      {
 							      		  	 		                       msg:"ok",
 							      		  	 			                   msg2:"login success",
+							      		  	 			                   redir:redir,
 							      		  	 		                      }
 							      		  	 		                    );
 							      		  	 	}
@@ -326,6 +340,21 @@ const kitchuCheck=(req,res,next)=>{
 										return next();
 									
 							   };
+const loggedInCheck=(req,res,next)=>{
+						  if(req.session.loggedin)
+						  	return next();
+						  else
+						    {
+						  	req.session.oldUrl='/user/'+req.url;						  	
+						  	res.render('infoPage',{
+											       title:"Unauthorized",
+											       img:"edd.jpg",
+											       info:"You cant access this page unless you are logged in",
+											       showprompt:"yes please",
+		                          				  }
+									   );
+						    }
+					                  };
 const tokenInfo=(req,res)=>{
 							
 							regtoken.find()
@@ -390,4 +419,5 @@ module.exports={
 				tokenInfo,
 				privilegeCheck,
 				kitchuCheck,
+				loggedInCheck,
 			   };
