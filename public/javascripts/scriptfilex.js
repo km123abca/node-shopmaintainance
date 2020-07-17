@@ -3,6 +3,31 @@ let active_row=-1;
 let totalValue=0;
 let live_bill=[];
 let presentStock=-1;
+let active_bill=1000;
+let allBills={};
+allBills[active_bill]=live_bill;
+
+function addToSelectables(bill_id)
+	{
+		let elemx=document.querySelector("#selopt");
+		if(elemx.innerHTML.indexOf(`<option>${bill_id}</option>`)==-1)
+			elemx.innerHTML+=`<option>${bill_id}</option>`;
+	}
+function removeFromSelectables(bill_id)
+	{
+		let elemx=document.querySelector("#selopt");
+		if(elemx.innerHTML.indexOf(`<option>${bill_id}</option>`)!=-1)
+			elemx.innerHTML=elemx.innerHTML.replace(`<option>${bill_id}</option>`,'');
+	}
+
+function addAllLegacyBills()
+	{
+		for(var x in allBills)
+		{
+			addToSelectables(x);
+		}
+
+	}
 
 function get_stuff_from_parent_url(pivot_word='=',pos=0)
 					{
@@ -46,13 +71,31 @@ function haltWait()
 		document.querySelector("#loading").style.display="none";
 	}
 
+function clearHTML()
+	{
+		val_list=['itemname','desc','price','qty','scanid','pment'];
+		innerHTML_list=['subtotal_pane2','tax_pane2','total_pane2',//'paid_pane2',
+		                'subtotal_pane3','tax_pane3','total_pane3','paid_pane3',
+		                'paybal'];
+		for(var a of innerHTML_list)		
+			document.querySelector("#"+a).innerHTML="";
+		for(var b of val_list)
+			document.querySelector("#"+b).value="";	
+		// console.log('clearing sales row');
+		$('.salesRow').remove();
+	}
 function clearAll()
 	{		
+		delete allBills[active_bill];
+		removeFromSelectables(active_bill);
+		storeLocally();
+
 		live_bill=[];
 		totalValue=0;
 		active_row=-1;
+		getLatestBill();
 		val_list=['itemname','desc','price','qty','scanid','pment'];
-		innerHTML_list=['subtotal_pane2','tax_pane2','total_pane2','paybal'];
+		innerHTML_list=['subtotal_pane2','tax_pane2','total_pane2','paybal','bal_pane3'];
 		for(var a of innerHTML_list)		
 			document.querySelector("#"+a).innerHTML="";
 		for(var b of val_list)
@@ -74,6 +117,7 @@ function computeBalance()
 		let paidAmt=parseFloat(document.querySelector("#pment").value);
 		let toPayAmt=parseFloat(document.querySelector("#total_pane2").innerHTML);
 
+
 		if(paidAmt<toPayAmt)
 			{
 				showModal_k("not Enought","Payment is short");
@@ -82,9 +126,49 @@ function computeBalance()
 		else
 			{
 				document.querySelector("#paybal").innerHTML=(paidAmt-toPayAmt).toFixed(2);
+				document.querySelector('#bal_pane3').innerHTML=(paidAmt-toPayAmt).toFixed(2);
+				document.querySelector('#paid_pane3').innerHTML=paidAmt;
 			}
 	}
-function printbill()
+function getLatestBill()
+	{   
+		setLocalData();
+		// console.log(live_bill);
+		let elem=document.querySelector('#rcptnum');
+		elem.innerHTML=1000;
+		// return bill_id;
+		fetch('/sales/latestbill')
+		     .then(response=>response.json())
+		     .then(
+		     	    response=>
+		     	           {
+		     	           	if(response.msg=="success")
+		     	           			{		     	           		
+		     	           			elem.innerHTML=response.bill_id;
+		     	           			active_bill=response.bill_id;
+		     	           			if(!allBills[active_bill])
+		     	           				allBills[active_bill]=live_bill;
+		     	           			getBill(active_bill);
+		     	           			addToSelectables(active_bill);
+		     	           			}
+		     	           	else 
+		     	           		{
+		     	           			showModal_k("error","Error at Backend");		     	           			
+		     	           		}
+		     	           }
+		     	  )
+		     .catch(
+		     		err=>{
+		     			   showModal_k("Error","Front end error while fetching latest bill no");
+		     			 }
+		     	   );
+		 
+	}
+function displayLatestBill()
+	{		
+		document.querySelector('#rcptnum').innerHTML=getLatestBill();		
+	}
+function printbill()	
 	{
 		if(active_row==-1)
 		{
@@ -119,7 +203,7 @@ function printbill()
 		let cashier=document.querySelector("#cashier").value;
 		if(cashier=="") 
 			cashier="Anonymous";
-		fetch('sales/logbill',
+		fetch('/sales/logbill',
 			                 {
 			                 	method:'POST',
 			                 	body:JSON.stringify({bill:live_bill,cashier:cashier}),
@@ -149,6 +233,138 @@ function printbill()
 		     	  );
 
 	}
+
+//functions to store and retrieve from local storage
+function destroyLocalStorage()
+	{
+		if(confirm('This will clear all bills are you sure?'))
+		localStorage.clear();
+	}
+function storeLocally()
+	{
+		console.log('backed up locally');
+		localStorage.setItem('allBills',JSON.stringify(allBills));
+	}
+function getLocalData()
+	{
+		let docs=localStorage.getItem('allBills');
+		docs=JSON.parse(docs);
+		if(docs)
+		{
+			console.log('doc found');
+			return docs;
+		}
+		else{
+			console.log('no earlier record');
+			return {};
+		}
+	}
+
+function setLocalData()
+	{
+		allBills=getLocalData();
+		addAllLegacyBills();
+		// console.log(JSON.stringify(allBills));
+	}
+//Functions to Extract and store specific bill id's
+function selChanged()
+	{
+		// showModal_k('info',document.querySelector('#selopt').value);
+		if(document.querySelector('#selopt').value!='--')
+			getBill(document.querySelector('#selopt').value);
+	}
+function getBill(bill_id="")
+	{
+		console.log('get bill:'+bill_id);
+		if(bill_id=="")
+			{
+			  let largest=1000;
+			  for(var key in allBills)
+			  {
+			  	if(key>largest)
+			  		largest=key;
+			  }
+			  
+			  active_bill=parseInt(largest)+1;
+			  
+			  addToSelectables(active_bill);
+			  live_bill=[];
+			  allBills[active_bill]=live_bill;
+			  active_row=-1;
+			  clearHTML();
+			  document.querySelector('#rcptnum').innerHTML=active_bill;
+
+			}
+		else if(allBills[bill_id])
+			{
+				// console.log('yes ');
+				clearHTML();
+				active_bill=bill_id;
+				live_bill=allBills[bill_id];
+
+				active_row=-1;
+				if(live_bill.length>0) active_row=0;
+				document.querySelector('#rcptnum').innerHTML=active_bill;	
+				let granTot=0;	
+				let tempStorage=document.querySelector('#billing-tbody').innerHTML;		
+				document.querySelector('#billing-tbody').innerHTML='';
+				for(var elem of live_bill)
+				{
+					let p_price=parseFloat(elem.qty*parseFloat(elem.Product_Price));
+					granTot+=p_price;
+					p_price=p_price.toFixed(2);
+					
+					
+					
+					document.querySelector('#billing-tbody').innerHTML+=
+						`
+						<tr class="salesRow">
+						  	     	<input type="hidden" id="p_esc" value="${elem.Product_Desc}"/>
+									<input type="hidden" id="pr_id" value="${elem.Product_id}"/>
+									<input type="hidden" id="pr_stk" value="${elem.Product_Qty}"/>
+						  	     						<td id="pna_e">${elem.Product_Name}</td>
+														<td id="pqty">${elem.qty}</td>
+														<td id="pprice">${elem.Product_Price}</td>
+														<td id="ptotpr">${p_price}</td>
+						</tr>						
+						`;					
+				}
+				document.querySelector('#billing-tbody').innerHTML+=tempStorage;
+				if(live_bill.length!=0) active_row=0;
+				console.log('granTot:'+granTot);
+				updateSubtotal_3pane(granTot);
+				updateSubtotal_2pane(granTot);
+				totalValue=granTot;
+			}
+	}
+
+
+//##################################################
+//functions to handle cookies
+function setCookie(cname, cvalue, exdays) {
+  var d = new Date();
+  d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+  var expires = "expires="+d.toUTCString();
+  document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+}
+
+function getCookie(cname) {
+  var name = cname + "=";
+  var ca = document.cookie.split(';');
+  for(var i = 0; i < ca.length; i++) {
+    var c = ca[i];
+    while (c.charAt(0) == ' ') {
+      c = c.substring(1);
+    }
+    if (c.indexOf(name) == 0) {
+      return c.substring(name.length, c.length);
+    }
+  }
+  return "";
+}
+
+//###########################
+
 // function that updates a bill variable as new products are added
 function updateLiveBill(pr_id,qty)
 	{
@@ -157,12 +373,18 @@ function updateLiveBill(pr_id,qty)
 			if(live_bill[i].Product_id==pr_id)
 				{live_bill[i].qty=qty;break;}
 		}
+		storeLocally();
 		console.log(JSON.stringify(live_bill));
+		console.log(getCookie('allBills'));
+
 	}
 function addNewToBill(pr_id,qty)
 	{
 		live_bill.push({"Product_id":pr_id,"qty":qty});
+		storeLocally();
 		console.log(JSON.stringify(live_bill));
+		console.log(JSON.stringify(allBills));
+		// setCookie('allBills',JSON.stringify(allBills),1);
 	}
 
 function deleteFromLiveBill(pr_id,qty)
@@ -178,6 +400,7 @@ function deleteFromLiveBill(pr_id,qty)
 				}
 		}
 		live_bill.splice(k,1);
+		storeLocally();
 		console.log(JSON.stringify(live_bill));
 	}
 function assignFocus(elem)
@@ -266,7 +489,7 @@ function checkWithServer(new_id)
 		if(new_id.length<4)
 			 return false;
 		showWait();
-		fetch('sales/withid',
+		fetch('/sales/withid',
 			                 {
 			                 	method:'POST',
 			                 	body:JSON.stringify({Product_id:new_id}),
@@ -307,9 +530,12 @@ function checkWithServer(new_id)
 						  	     	 					"Product_id":new_id,
 						  	     	 					"qty":1,
 						  	     	 					"Product_Name":response.Product_Name,
-						  	     	 					"Product_Price":response.Product_Price,						  	     	 					
+						  	     	 					"Product_Price":response.Product_Price,	
+						  	     	 					"Product_Desc":response.Product_Desc,
+						  	     	 					"Product_Qty":response.Product_Qty,						  	     	 										  	     	 					
 						  	     	 				}
 						  	     	 	);
+						  	     	 storeLocally();
 
 						  	     	document.querySelector("#billing-tbody").innerHTML=stringToPush+
 						  	     	                         document.querySelector("#billing-tbody").innerHTML;
@@ -456,5 +682,7 @@ function checkWithServer(new_id)
 			mirrorActiveRow();
 		}      
     };
+
+    
 
 

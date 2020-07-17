@@ -70,6 +70,8 @@ label{
 						width: 60px;
 						margin: 5px;
 						text-align: center;
+						border-radius: 15%;
+						box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
 					}
 					#cashpane1{
 						/*border:2px solid black;*/
@@ -202,3 +204,20 @@ label{
 		   font-weight: bold;
 		   font-family: "Algerian"
 		}
+
+
+#loadbill{
+	display:flex;
+	justify-content: space-between;
+	margin-top:5px;
+	/*max-width: 90%;*/
+}
+#selopt{
+	/*flex:3;
+	padding:10px;*/
+	flex-basis:50%;
+	/*border:2px solid black;*/
+}
+#getbill{
+	flex:1;
+}

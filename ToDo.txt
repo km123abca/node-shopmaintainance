@@ -46,4 +46,5 @@
 [] Restrict access to certain pages based on privilege level.
 [x] Make a table to store privilege tokens
 [] Show data using graphs
+[] Store live bill info in cookie
 

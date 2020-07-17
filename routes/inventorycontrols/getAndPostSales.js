@@ -93,6 +93,39 @@ const salesReport=(req,res)=>{
 	  	   				                       }
 										    );
 							 };
+const latestBillId=(req,res)=>{
+								let bill_id_new=1000;
+								billsx.findOne()
+								      .sort('-Bill_id')
+								      .exec()
+								      .then(
+								      		doc=>
+								      		  {
+								      		  	if(doc)
+								      		  		{
+							      		  			bill_id_new=doc.Bill_id+1;	
+							      		  			}							      		  			
+							      		  			res.status(200).json(
+												      			    		{												      			    			
+												      			    		  "bill_id":bill_id_new,
+												      			    		  "msg":"success",
+												      			    		}               
+												      			    	);								      		  			
+								      		  		
+
+								      		  }
+								      	   )
+								      .catch(err=>	
+	  	   				                       {						  	   					
+						  	   					res.status(500).json(
+						  	   											{
+						  	   												msg:"error",
+						  	   												error:err,
+						  	   											}
+						  	   										);
+	  	   				                       }
+										    );
+						       };
 
 const updateBill= (req,res)=>{
 								var listOfItems=req.body.bill;
@@ -250,4 +283,5 @@ module.exports={
 				 updateBill,
 				 salesReport,
 				 salesReport_graphic,
+				 latestBillId,
 			   };

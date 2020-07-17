@@ -8,4 +8,5 @@ router.get('/report',salesFns.salesReport);
 router.get('/sreport',salesFns.salesReport_graphic);
 router.post('/withid',salesFns.getDetailsWithID);
 router.post('/logbill',salesFns.updateBill);
+router.get('/latestbill',salesFns.latestBillId);
 module.exports=router;
